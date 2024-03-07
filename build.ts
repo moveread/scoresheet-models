@@ -24,14 +24,11 @@ await build({
     // package.json properties
     name: "scoresheet-models",
     version,
-    description: "Your package.",
+    description: "Tools for storing, rendering and parsing chess scoresheet models ",
     license: "MIT",
     repository: {
       type: "git",
-      url: "git+https://github.com/username/repo.git",
-    },
-    bugs: {
-      url: "https://github.com/username/repo/issues",
+      url: "git+https://github.com/moveread/scoresheet-models",
     },
   },
   postBuild() {
