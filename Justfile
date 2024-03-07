@@ -1,8 +1,9 @@
 # Build, increment patch number and publish
-patch:
-  rm -drf dist  || echo 'No previous dist'
-  yarn build && yarn version --patch && npm publish
+patch: build
+  cd dist && yarn version --patch --no-git-tag-version
 
-# Install a package as both --dev and --peer
-extra PACKAGE:
-  yarn add --peer {{PACKAGE}} && yarn add --dev {{PACKAGE}}
+# Use dnt to build
+build:
+  deno run -A build.ts
+  rm -drf dist/node_modules dist/yarn.lock dist/.npmignore
+  json -I -f dist/package.json -e "delete this._generatedBy"
