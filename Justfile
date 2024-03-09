@@ -8,3 +8,4 @@ build:
   deno run -A build.ts
   rm -drf dist/node_modules dist/yarn.lock dist/.npmignore
   json -I -f dist/package.json -e "delete this._generatedBy"
+  cp -r images dist
