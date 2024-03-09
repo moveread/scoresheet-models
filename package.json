@@ -1,11 +1,8 @@
 {
   "name": "scoresheet-models",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "package_description",
   "type": "module",
-  "files": [
-    "src/**/*"
-  ],
   "scripts": {
     "build": "npx tsc -p tsconfig.json"
   },
