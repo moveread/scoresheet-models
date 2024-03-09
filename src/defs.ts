@@ -1,9 +1,12 @@
-import { Vec2 } from './util/vectors.ts'
-import { range } from './util/arrays.ts'
+import { Vec2 } from './util/vectors.js'
+import { range } from './util/arrays.js'
 
 export type Model = {
+  /** Box Width relative to 1 */
   boxWidth: number
+  /** Number of rows */
   rows: number
+  /** Columns offsets (relative to 1), where column block are represented by `null` (they have width `2*boxWidth`) */
   columns: Array<number|null>
 } & Partial<DerivedProperties>
 

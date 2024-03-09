@@ -1,5 +1,5 @@
-import { Model, columnOffsets, Grid } from "./defs.ts";
-import { range } from "./util/index.ts";
+import { Model, columnOffsets, Grid } from "./defs.js";
+import { range } from "./util/index.js";
 
 export function rowLines(rows: number): number[] {
   return range(rows+1).map(r => r/rows)

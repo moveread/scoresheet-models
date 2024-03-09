@@ -1,2 +1,2 @@
-export * as vec from './vectors.ts'
-export { range } from './arrays.ts'
+export * as vec from './vectors.js'
+export { range } from './arrays.js'

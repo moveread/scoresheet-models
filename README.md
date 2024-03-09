@@ -2,6 +2,13 @@
 
 > Tools for storing, rendering and parsing chess scoresheet models
 
+## Model images
+
+```jsx
+import { images } from 'scoresheet-models/images'
+
+<img src={images.fcde.l} /> // yeah, really. Vite will figure it out and include it inside assets
+```
 
 ## Model representation
 

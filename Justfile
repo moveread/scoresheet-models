@@ -1,11 +1,22 @@
 # Build, increment patch number and publish
 patch: build
-  cd dist && yarn version --patch --no-git-tag-version
+  yarn version --patch
+  @just publish
+
+publish:
+  @just copy
   cd dist && npm publish
 
-# Use dnt to build
 build:
-  deno run -A build.ts
-  rm -drf dist/node_modules dist/yarn.lock dist/.npmignore
-  json -I -f dist/package.json -e "delete this._generatedBy"
-  cp -r images dist
+  rm -dr dist || :
+  yarn run build
+
+copy:
+  cp -r src/images dist
+  cp package.json dist
+  cp tsconfig.json dist
+  cp README.md dist
+
+# Install a package as both --dev and --peer
+extra PACKAGE:
+  yarn add --peer {{PACKAGE}} && yarn add --dev {{PACKAGE}}
