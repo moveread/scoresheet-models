@@ -1,7 +1,8 @@
 import { ReifiedModel } from "./defs.js";
 import { reify } from "./defs.js";
 
-export type ModelID = 'fcde' | 'llobregat23'
+export const MODEL_IDS = ['fcde', 'llobregat23'] as const
+export type ModelID = typeof MODEL_IDS[number]
 export const models: Record<ModelID, ReifiedModel> = {
   fcde: reify({
    rows: 25,
