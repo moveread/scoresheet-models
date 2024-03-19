@@ -1,7 +1,7 @@
 {
   "name": "scoresheet-models",
-  "version": "0.1.12",
-  "description": "package_description",
+  "version": "0.1.13",
+  "description": "Tools for storing, rendering and parsing chess scoresheet models",
   "type": "module",
   "scripts": {
     "build": "npx tsc -p tsconfig.json"
