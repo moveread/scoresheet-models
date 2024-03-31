@@ -2,7 +2,7 @@
 
 > Tools for storing, rendering and parsing chess scoresheet models
 
-## Model images
+## Model images (JS Package)
 
 ```jsx
 import { images } from 'scoresheet-models/images'
