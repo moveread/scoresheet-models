@@ -15,8 +15,8 @@ dependencies = [
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}
 
-# [project.urls]
-# repo = "<GIT_REPO_URL>"
+[project.urls]
+repo = "https://github.com/moveread/scoresheet-models"
 
 # [project.optional-dependencies]
 # test = [

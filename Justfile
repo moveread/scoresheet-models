@@ -1,5 +1,7 @@
 mod js
-mod pyVENV := ".venv"
+mod py
+
+VENV := ".venv"
 PYTHON := ".venv/bin/python"
 
 init:
