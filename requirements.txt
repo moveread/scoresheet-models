@@ -1,0 +1,4 @@
+build
+twine
+pure-cv[plot]
+pydantic
