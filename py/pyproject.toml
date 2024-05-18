@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Tools for storing, rendering and parsing chess scoresheet models"
 dependencies = [
-  
+  "Pydantic"
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}

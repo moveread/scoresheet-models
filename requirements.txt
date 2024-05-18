@@ -1,4 +1,6 @@
 build
 twine
 pure-cv[plot]
-pydantic
+ipykernel
+haskellian
+-e py

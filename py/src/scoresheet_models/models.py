@@ -1,5 +1,5 @@
 from typing import Literal
-from ..defs import Model
+from .model import Model
 
 ModelID = Literal['fcde', 'llobregat23']
 MODEL_IDS: list[ModelID] = ['fcde', 'llobregat23']
