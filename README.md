@@ -40,5 +40,5 @@ We refer to these expanded column offsets as $C_o$
 
 For simplicity, we enforce a conventional grid size of $(1, 1)$. Thus, we require that:
 
-$$\sum_{x\in C_o} = 1$$
+$$\sum_{x\in C_o}x = 1$$
 (sum of column offsets adds up to 1)
