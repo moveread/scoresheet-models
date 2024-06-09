@@ -5,6 +5,6 @@ import { ModelID } from "./models.js";
 
 export type ImgSize = 's' | 'm' | 'l' | 'xl'
 
-export const images: Record<ModelID, Record<ImgSize, string>> = {
+export const images: Partial<Record<ModelID, Record<ImgSize, string>>> = {
   fcde, llobregat23
 }

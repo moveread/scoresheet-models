@@ -15,7 +15,7 @@ copy:
   cp -r src/images dist
   cp package.json dist
   cp tsconfig.json dist
-  cp README.md dist
+  cp ../README.md dist
 
 # Install a package as both --dev and --peer
 extra PACKAGE:
