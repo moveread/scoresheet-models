@@ -1,8 +1,9 @@
 from typing import Literal
-from .model import Model
+from ..model import Model
+from .andorra import ANDORRA
 
-ModelID = Literal['fcde', 'llobregat23']
-MODEL_IDS: list[ModelID] = ['fcde', 'llobregat23']
+ModelID = Literal['fcde', 'llobregat23', 'andorra']
+MODEL_IDS: list[ModelID] = ['fcde', 'llobregat23', 'andorra']
 models: dict[ModelID, Model] = {
   'fcde': Model(
     boxWidth=0.14509394397496592,
@@ -13,5 +14,6 @@ models: dict[ModelID, Model] = {
     boxWidth=0.23350253819201386,
     rows=30,
     columns=[None, 0.06598984723194462, None]
-  )
+  ),
+  'andorra': ANDORRA
 }

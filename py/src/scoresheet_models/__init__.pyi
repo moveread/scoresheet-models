@@ -1,5 +1,5 @@
 from .model import Model
-from .models import ModelID, MODEL_IDS, models
+from ._models import ModelID, MODEL_IDS, models
 from .drawing import draw
 
 __all__ = [
