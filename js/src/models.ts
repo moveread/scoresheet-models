@@ -29,10 +29,10 @@ function LLOBREGAT23() {
 }
 
 function ANDORRA() {
-  const SPACE_W = 0.008
-  const NUM_W = 0.022
+  const SPACE_W = 0.01904761904761905
+  const NUM_W = 0.05238095238095238
   return {
-    boxWidth: 0.06,
+    boxWidth: 0.14285714285714285,
     rows: 20,
     columns: [null, SPACE_W, NUM_W, null, SPACE_W, NUM_W, null]
   }
