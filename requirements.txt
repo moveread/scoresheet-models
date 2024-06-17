@@ -1,6 +1,0 @@
-build
-twine
-pure-cv[plot]
-ipykernel
-haskellian
--e py
