@@ -14,7 +14,7 @@ export default defineConfig({
     // mkcert(), // self-signed ssl-certificate, stored in ~/.vite-plugig-mkcert/rootCA.pem
     // viteCompression({ algorithm: 'gzip'}), viteCompression({ algorithm: 'brotliCompress' }), // Azure SWA already does that for you, so no need! (check your provider)
   ],
-  base: '/', // change if you're deploying to github pages
+  base: '/scoresheet-models/', // change if you're deploying to github pages
   resolve: {
     // preserveSymlinks: true // necessary for yarn link to work
   },
