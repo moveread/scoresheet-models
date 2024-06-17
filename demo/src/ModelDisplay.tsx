@@ -1,6 +1,6 @@
 import { Spinner } from '@chakra-ui/react'
 import { useEffect, useState, lazy } from 'react'
-import { useParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { Model, fetchModel } from 'scoresheet-models'
 const Selector = lazy(() => import('./Selector'));
 
@@ -21,8 +21,8 @@ function ModelDisplay({ modelId }: Props) {
 }
 
 export function Display() {
-  const { model } = useParams()
-  return <ModelDisplay modelId={model!} />
+  const [params] = useSearchParams()
+  return <ModelDisplay modelId={params.get('model')!} />
 }
 
 export default Display

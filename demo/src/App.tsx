@@ -2,16 +2,10 @@ import { Button, Center, HStack, Heading, Spinner, Text, VStack } from "@chakra-
 import { useEffect, useState } from "react"
 import { fetchModels } from "scoresheet-models"
 import Display from "./ModelDisplay"
-import { useRoutes } from "react-router-dom"
 type Props = {
   models: string[]
 }
 function Loaded({ models }: Props) {
-  
-  const routes = useRoutes([{
-    path: ':model',
-    element: <Display />
-  }])
 
   return (
     <VStack h='100vh' w='100vw' align='center' justify='center'>
@@ -24,13 +18,13 @@ function Loaded({ models }: Props) {
             ? <Spinner />
             : (
               <VStack>
-                {models.map(m => <Button as='a' key={m} href={m}>{m}</Button>)}
+                {models.map(m => <Button as='a' key={m} href={`.?model=${m}`}>{m}</Button>)}
               </VStack>
             )
           }
         </VStack>
         <Center w='70%' h='100%'>
-          {routes}
+          <Display />
         </Center>
       </HStack>
     </VStack>
