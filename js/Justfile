@@ -12,7 +12,6 @@ build:
   yarn run build
 
 copy:
-  cp -r src/images dist
   cp package.json dist
   cp tsconfig.json dist
   cp ../README.md dist

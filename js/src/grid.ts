@@ -1,8 +1,8 @@
+import { range } from "@haskellian/range";
 import { Model, columnOffsets, Grid } from "./defs.js";
-import { range } from "./util/index.js";
 
 export function rowLines(rows: number): number[] {
-  return range(rows+1).map(r => r/rows)
+  return range(0, rows+1).map(r => r/rows)
 }
 
 export function columnLines(columns: Array<number|null>, boxWidth: number): number[] {

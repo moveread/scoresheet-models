@@ -11,6 +11,9 @@ def draw(
   - `s`: scale
   - `t`: translation
   """
+  h, w = img.shape[:2]
+  s = s * [w, h]
+  t = t * [w, h]
   cols = s[0]*np.array(model.col_positions) + t[0]
   rows = s[1]*np.array(model.row_positions) + t[1]
   out = vc.draw.vlines(img, cols, thickness=thickness, color=color)

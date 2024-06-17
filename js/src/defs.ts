@@ -1,5 +1,6 @@
-import { Vec2 } from './util/vectors.js'
-import { range } from './util/arrays.js'
+import { range } from "@haskellian/range"
+
+export type Vec2 = [number, number]
 
 export type Model = {
   /** Box Width relative to 1 */
@@ -8,15 +9,7 @@ export type Model = {
   rows: number
   /** Columns offsets (relative to 1), where column block are represented by `null` (they have width `2*boxWidth`) */
   columns: Array<number|null>
-} & Partial<DerivedProperties>
-
-export type DerivedProperties = {
-  columnOffsets: number[]
-  blockColumns: number[]
-  boxPositions: Vec2[]
 }
-
-export type ReifiedModel = Model & Required<DerivedProperties>
 
 export type Grid = {
   rows: number[]
@@ -73,25 +66,13 @@ export function boxLocation(boxIdx: number, rows: number): BoxLocation {
   return { color, row, block }
 }
 
-export function boxPositions({ rows, columns, boxWidth, blockColumns, boxPositions }: Model): Vec2[] {
-  if (boxPositions)
-    return boxPositions
-
+export function boxPositions({ rows, columns, boxWidth }: Model): Vec2[] {
   const ps: Vec2[] = []
-  for (const c of blockColumns ?? blockCols(columns, boxWidth)) {
-    for (const i of range(rows)) {
+  for (const c of blockCols(columns, boxWidth)) {
+    for (const i of range(0, rows)) {
       const r = i/rows
       ps.push([c, r], [c+boxWidth, r])
     }
   }
   return ps
-}
-
-export function reify(model: Model): ReifiedModel {
-  const blockColumns = blockCols(model.columns, model.boxWidth)
-  const boxPs = boxPositions({ ...model, blockColumns })
-  return {
-    ...model, blockColumns, boxPositions: boxPs,
-    columnOffsets: columnOffsets(model.columns, model.boxWidth)
-  }
 }
