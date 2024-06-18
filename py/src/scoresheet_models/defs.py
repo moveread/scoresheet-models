@@ -1,15 +1,17 @@
+from typing import Sequence
+
 Vec2 = tuple[float, float]
 
-def column_offsets(cols: list[float|None], box_width: float) -> list[float]:
+def column_offsets(cols: Sequence[float|None], box_width: float) -> list[float]:
   offsets = []
   for c in cols:
     offsets.extend([box_width, box_width] if c is None else [c])
   return offsets
 
-def num_blocks(cols: list[float|None]) -> int:
+def num_blocks(cols: Sequence[float|None]) -> int:
   return len([x for x in cols if x is None])
 
-def block_cols(cols: list[float|None], box_width: float) -> list[float]:
+def block_cols(cols: Sequence[float|None], box_width: float) -> list[float]:
   """x-positions of block cols (relative to the grid width being 1)"""
   xs = []
   dx = 0
@@ -21,7 +23,7 @@ def block_cols(cols: list[float|None], box_width: float) -> list[float]:
       dx += c
   return xs
 
-def box_positions(block_cols: list[float], rows: int, box_width: float) -> list[Vec2]:
+def box_positions(block_cols: Sequence[float], rows: int, box_width: float) -> list[Vec2]:
   ps: list[Vec2] = []
   for c in block_cols:
     for i in range(rows):

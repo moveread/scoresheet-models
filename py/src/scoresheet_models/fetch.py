@@ -4,7 +4,7 @@ from haskellian import Either, Left, Right
 from pydantic import ValidationError
 from azure.storage.blob.aio import ContainerClient, BlobServiceClient
 from azure.core.exceptions import ResourceNotFoundError
-from .model import Model
+from robust_extraction2 import ExtendedModel
 
 STORAGE_ACCOUNT = 'https://movereadcdn.blob.core.windows.net/'
 CONTAINER = 'scoresheet-models'
@@ -35,12 +35,12 @@ async def fetch_models() -> Either[NotFound | UnknownErr, list[str]]:
     except Exception as e:
       return Left(UnknownErr('unknown', e))
 
-async def fetch_model(id: str) -> Either[FetchErr, Model]:
+async def fetch_model(id: str) -> Either[FetchErr, ExtendedModel]:
   async with ContainerClient(STORAGE_ACCOUNT, CONTAINER) as cc:
     try:
       blob = await cc.download_blob(id + '.json')
       data = await blob.readall()
-      return Right(Model.model_validate_json(data))
+      return Right(ExtendedModel.model_validate_json(data))
     except ResourceNotFoundError as e:
       return Left(NotFound('not-found', str(e)))
     except ValidationError as e:
@@ -50,12 +50,12 @@ async def fetch_model(id: str) -> Either[FetchErr, Model]:
   
 def models_kv(conn_str: str):
   from kv.azure.blob import BlobContainerKV
-  return BlobContainerKV[Model].validated(
-    Model, client=BlobServiceClient.from_connection_string(conn_str),
+  return BlobContainerKV[ExtendedModel].validated(
+    ExtendedModel, client=lambda: BlobServiceClient.from_connection_string(conn_str),
     container='scoresheet-models',
   )
 
-async def save_model(id: str, model: Model, *, conn_str: str):
+async def save_model(id: str, model: ExtendedModel, *, conn_str: str):
   kv = models_kv(conn_str)
   r = await kv.insert(id + '.json', model)
   return r

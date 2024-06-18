@@ -38,14 +38,14 @@ class Model(BaseModel):
   def row_positions(self) -> Sequence[float]:
     return [i/self.rows for i in range(self.rows+1)]
   
-  @property
-  def nboxes(self) -> int:
-    return len(self.box_positions)
+  # @property
+  # def nboxes(self) -> int:
+  #   return len(self.box_positions)
   
-  @property
-  def rmin(self):
-    return 1 / self.rows
+  # @property
+  # def rmin(self):
+  #   return 1 / self.rows
   
-  @property
-  def cmin(self):
-    return min(self.col_offsets)
+  # @property
+  # def cmin(self):
+  #   return min(self.col_offsets)
