@@ -33,7 +33,7 @@ def padded_rois(
   rois[:, 3] = tl[:, 1] + (1 + b) * size[1]
   return np.round(rois).astype(int).clip(0)
 
-def extract_boxes(model: Model, img: np.ndarray, *, tl: Vec2, size: Vec2, pads: Pads = {}) -> list[np.ndarray]:
+def extract_boxes(img: np.ndarray, model: Model, *, tl: Vec2, size: Vec2, pads: Pads = {}) -> list[np.ndarray]:
   h, w = img.shape[:2]
   box_positions = (np.array(model.box_positions)*size + tl) * [w, h]
   box_size = np.array(model.box_size) * [w, h] * size
