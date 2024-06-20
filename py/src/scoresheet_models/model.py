@@ -1,7 +1,6 @@
 from typing import Sequence
 from functools import cached_property
 from pydantic import BaseModel
-import numpy as np
 from .defs import Vec2, block_cols, box_positions, column_offsets
 
 class Model(BaseModel):
@@ -32,6 +31,7 @@ class Model(BaseModel):
   
   @cached_property
   def col_positions(self) -> Sequence[float]:
+    import numpy as np
     return np.cumsum([0, *self.col_offsets])
   
   @cached_property

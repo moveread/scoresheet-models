@@ -1,9 +1,7 @@
 from typing import Literal
 from dataclasses import dataclass
-from haskellian import Either, Left, Right
+from haskellian import Either, Left, Right, either as E
 from pydantic import ValidationError
-from azure.storage.blob.aio import ContainerClient, BlobServiceClient
-from azure.core.exceptions import ResourceNotFoundError
 from robust_extraction2 import ExtendedModel
 
 STORAGE_ACCOUNT = 'https://movereadcdn.blob.core.windows.net/'
@@ -27,6 +25,8 @@ class UnknownErr:
 FetchErr = NotFound | InvalidData | UnknownErr
 
 async def fetch_models() -> Either[NotFound | UnknownErr, list[str]]:
+  from azure.storage.blob.aio import ContainerClient, BlobServiceClient
+  from azure.core.exceptions import ResourceNotFoundError
   async with ContainerClient(STORAGE_ACCOUNT, CONTAINER) as cc:
     try:
       return Right([name.split('.')[0] async for name in cc.list_blob_names()])
@@ -36,6 +36,8 @@ async def fetch_models() -> Either[NotFound | UnknownErr, list[str]]:
       return Left(UnknownErr('unknown', e))
 
 async def fetch_model(id: str) -> Either[FetchErr, ExtendedModel]:
+  from azure.storage.blob.aio import ContainerClient
+  from azure.core.exceptions import ResourceNotFoundError
   async with ContainerClient(STORAGE_ACCOUNT, CONTAINER) as cc:
     try:
       blob = await cc.download_blob(id + '.json')
@@ -47,9 +49,24 @@ async def fetch_model(id: str) -> Either[FetchErr, ExtendedModel]:
       return Left(InvalidData('invalid-data', str(e)))
     except Exception as e:
       return Left(UnknownErr('unknown', e))
+    
+class ModelsCache:
+  def __init__(self, models: dict[str, ExtendedModel] = {}):
+    self.models = models
+
+  def __repr__(self):
+    return f'ModelsCache({repr(self.models)})'
+
+  @E.do[FetchErr]()
+  async def fetch(self, id: str):
+    if id not in self.models:
+      self.models[id] = (await fetch_model(id)).unsafe()
+    return self.models[id]
+
   
 def models_kv(conn_str: str):
   from kv.azure.blob import BlobContainerKV
+  from azure.storage.blob.aio import BlobServiceClient
   return BlobContainerKV[ExtendedModel].validated(
     ExtendedModel, client=lambda: BlobServiceClient.from_connection_string(conn_str),
     container='scoresheet-models',
