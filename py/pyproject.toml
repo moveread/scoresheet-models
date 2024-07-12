@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scoresheet-models"
-version = "0.1.9"
+version = "0.1.10"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
 description = "Tools for storing, rendering and parsing chess scoresheet models"
 dependencies = [
-  "pydantic", "kv-azure-blob", "aiohttp"
+  "pydantic", "python-kv[blob]"
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}
