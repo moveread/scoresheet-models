@@ -1,7 +1,8 @@
-import { Button, Center, HStack, Heading, Spinner, Text, VStack } from "@chakra-ui/react"
+import { Center, HStack, Heading, Spinner, Text, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { fetchModels } from "scoresheet-models"
 import Display from "./ModelDisplay"
+import { NavLink } from "react-router-dom"
 type Props = {
   models: string[]
 }
@@ -18,7 +19,7 @@ function Loaded({ models }: Props) {
             ? <Spinner />
             : (
               <VStack>
-                {models.map(m => <Button as='a' key={m} href={`.?model=${m}`}>{m}</Button>)}
+                {models.map(m => <NavLink key={m} to={`.?model=${m}`}>{m}</NavLink>)}
               </VStack>
             )
           }

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "jsx": "react-jsx",
+
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    "declaration": true,
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+
+    "paths": {
+      
+    }
+
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

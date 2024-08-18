@@ -67,9 +67,9 @@ class ModelsCache:
 def models_kv(conn_str: str):
   from kv.azure.blob import BlobContainerKV
   from azure.storage.blob.aio import BlobServiceClient
-  return BlobContainerKV[ExtendedModel].validated(
-    ExtendedModel, client=lambda: BlobServiceClient.from_connection_string(conn_str),
-    container='scoresheet-models',
+  return BlobContainerKV[ExtendedModel].new(
+    client=lambda: BlobServiceClient.from_connection_string(conn_str),
+    type=ExtendedModel, container='scoresheet-models',
   )
 
 async def save_model(id: str, model: ExtendedModel, *, conn_str: str):

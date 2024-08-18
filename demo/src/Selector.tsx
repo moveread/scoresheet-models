@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from 'react'
 import { grid, Model } from 'scoresheet-models'
 import { useGridSelector } from 'use-grid-selector'
 
@@ -7,7 +8,9 @@ type SelectorProps = {
 }
 
 export function Selector({ src, model }: SelectorProps) {
-  const { ref } = useGridSelector(src, grid(model))
+  const templ = useMemo(() => grid(model), [model])
+  const { ref, reset } = useGridSelector(src, templ)
+  useEffect(() => reset(), [model])
   return <canvas ref={ref} />
 }
 
