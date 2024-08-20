@@ -33,5 +33,5 @@ def box_positions(block_cols: Sequence[float], rows: int, box_width: float) -> l
   return ps
 
 def box_size(rows: int, box_width: float) -> Vec2:
-    """Box size normalized to the grid being `(1, 1)`"""
-    return box_width, 1/rows
+  """Box size normalized to the grid being `(1, 1)`"""
+  return box_width, 1/rows
