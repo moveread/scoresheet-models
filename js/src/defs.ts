@@ -1,5 +1,3 @@
-import { range } from "@haskellian/range"
-
 export type Vec2 = [number, number]
 
 export type Model = {
@@ -23,55 +21,49 @@ export type Box = {
   s: Vec2
 }
 
-/** Expanded columns offsets (including block columns). They should add up to 1. */
-export function columnOffsets(columns: Array<number|null>, boxWidth: number): number[] {
-  return columns.flatMap(x => x === null ? [boxWidth, boxWidth] : [x])
+export function columnOffsets({ columns, boxWidth }: Model): number[] {
+  return columns.map(c => c === null ? boxWidth : c)
 }
 
-/** Number of column blocks */
-export function numBlocks(columns: Array<number|null>): number {
-  return columns.filter(x => x === null).length
-}
-
-/** x-positions of block cols (relative to the grid width being 1) */
-export function blockCols(columns: Array<number|null>, boxWidth: number): number[] {
+/** Box X positions (relative to 1) */
+export function boxXs({ columns, boxWidth }: Model): number[] {
   const xs: number[] = []
   let dx = 0
-  for (const x of columns) {
-    if (x === null) {
+
+  for (const c of columns) {
+    if (c === null) {
       xs.push(dx)
-      dx += 2*boxWidth
+      dx += boxWidth
     }
     else
-      dx += x
+      dx += c
   }
+
   return xs
 }
+
 
 /** Box size normalized to the grid being `(1, 1)` */
 export function boxSize({ rows, boxWidth }: Model): Vec2 {
   return [boxWidth, 1/rows]
 }
 
-export type BoxLocation = {
-  block: number
-  row: number
-  color: 0 | 1
-}
-export function boxLocation(boxIdx: number, rows: number): BoxLocation {
-  const color = boxIdx % 2 as 0 | 1
-  const moveIdx = Math.floor(boxIdx/2) // full-move index (independent of the color)
-  const row = moveIdx % rows
-  const block = Math.floor(moveIdx/rows)
-  return { color, row, block }
+export const range = (n: number) => new Array(n).fill(0).map((_, i) => i)
+
+function pairsiwe<T>(xs: T[]): [T, T][] {
+  const n = xs.length
+  const ps: [T, T][] = []
+  for (const i of range(n-1))
+    ps.push([xs[i], xs[i+1]])
+  return ps
 }
 
-export function boxPositions({ rows, columns, boxWidth }: Model): Vec2[] {
+export function boxPositions(model: Model): Vec2[] {
   const ps: Vec2[] = []
-  for (const c of blockCols(columns, boxWidth)) {
-    for (const i of range(0, rows)) {
-      const r = i/rows
-      ps.push([c, r], [c+boxWidth, r])
+  for (const [x1, x2] of pairsiwe(boxXs(model))) {
+    for (const i of range(model.rows)) {
+      const r = i/model.rows
+      ps.push([x1, r], [x2, r])
     }
   }
   return ps

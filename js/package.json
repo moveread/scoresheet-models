@@ -1,6 +1,6 @@
 {
   "name": "scoresheet-models",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Tools for storing, rendering and parsing chess scoresheet models",
   "type": "module",
   "scripts": {
@@ -18,8 +18,5 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "typescript": "^5.3.2"
-  },
-  "dependencies": {
-    "@haskellian/range": "^1.0.1"
   }
 }

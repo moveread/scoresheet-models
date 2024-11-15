@@ -1,14 +1,13 @@
-import { range } from "@haskellian/range";
-import { Model, columnOffsets, Grid } from "./defs.js";
+import { Model, columnOffsets, Grid, range } from './defs.js'
 
 export function rowLines(rows: number): number[] {
-  return range(0, rows+1).map(r => r/rows)
+  return range(rows+1).map(r => r/rows)
 }
 
-export function columnLines(columns: Array<number|null>, boxWidth: number): number[] {
+export function columnLines(model: Model): number[] {
   let dx = 0
   const xs: number[] = []
-  for (const offset of columnOffsets(columns, boxWidth)) {
+  for (const offset of columnOffsets(model)) {
     xs.push(dx)
     dx += offset
   }
@@ -19,6 +18,6 @@ export function columnLines(columns: Array<number|null>, boxWidth: number): numb
 export function grid(model: Model): Grid {
   return {
     rows: rowLines(model.rows),
-    cols: columnLines(model.columns, model.boxWidth)
+    cols: columnLines(model)
   }
 }

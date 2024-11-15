@@ -1,12 +1,11 @@
-import { range } from "@haskellian/range";
-import { columnOffsets } from "./defs.js";
+import { columnOffsets, range } from './defs.js';
 export function rowLines(rows) {
-    return range(0, rows + 1).map(r => r / rows);
+    return range(rows + 1).map(r => r / rows);
 }
-export function columnLines(columns, boxWidth) {
+export function columnLines(model) {
     let dx = 0;
     const xs = [];
-    for (const offset of columnOffsets(columns, boxWidth)) {
+    for (const offset of columnOffsets(model)) {
         xs.push(dx);
         dx += offset;
     }
@@ -16,6 +15,6 @@ export function columnLines(columns, boxWidth) {
 export function grid(model) {
     return {
         rows: rowLines(model.rows),
-        cols: columnLines(model.columns, model.boxWidth)
+        cols: columnLines(model)
     };
 }

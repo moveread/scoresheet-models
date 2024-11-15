@@ -17,18 +17,10 @@ export type Box = {
     /** Size aka scale */
     s: Vec2;
 };
-/** Expanded columns offsets (including block columns). They should add up to 1. */
-export declare function columnOffsets(columns: Array<number | null>, boxWidth: number): number[];
-/** Number of column blocks */
-export declare function numBlocks(columns: Array<number | null>): number;
-/** x-positions of block cols (relative to the grid width being 1) */
-export declare function blockCols(columns: Array<number | null>, boxWidth: number): number[];
+export declare function columnOffsets({ columns, boxWidth }: Model): number[];
+/** Box X positions (relative to 1) */
+export declare function boxXs({ columns, boxWidth }: Model): number[];
 /** Box size normalized to the grid being `(1, 1)` */
 export declare function boxSize({ rows, boxWidth }: Model): Vec2;
-export type BoxLocation = {
-    block: number;
-    row: number;
-    color: 0 | 1;
-};
-export declare function boxLocation(boxIdx: number, rows: number): BoxLocation;
-export declare function boxPositions({ rows, columns, boxWidth }: Model): Vec2[];
+export declare const range: (n: number) => number[];
+export declare function boxPositions(model: Model): Vec2[];

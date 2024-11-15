@@ -1,23 +1,17 @@
-import { range } from "@haskellian/range";
-/** Expanded columns offsets (including block columns). They should add up to 1. */
-export function columnOffsets(columns, boxWidth) {
-    return columns.flatMap(x => x === null ? [boxWidth, boxWidth] : [x]);
+export function columnOffsets({ columns, boxWidth }) {
+    return columns.map(c => c === null ? boxWidth : c);
 }
-/** Number of column blocks */
-export function numBlocks(columns) {
-    return columns.filter(x => x === null).length;
-}
-/** x-positions of block cols (relative to the grid width being 1) */
-export function blockCols(columns, boxWidth) {
+/** Box X positions (relative to 1) */
+export function boxXs({ columns, boxWidth }) {
     const xs = [];
     let dx = 0;
-    for (const x of columns) {
-        if (x === null) {
+    for (const c of columns) {
+        if (c === null) {
             xs.push(dx);
-            dx += 2 * boxWidth;
+            dx += boxWidth;
         }
         else
-            dx += x;
+            dx += c;
     }
     return xs;
 }
@@ -25,19 +19,20 @@ export function blockCols(columns, boxWidth) {
 export function boxSize({ rows, boxWidth }) {
     return [boxWidth, 1 / rows];
 }
-export function boxLocation(boxIdx, rows) {
-    const color = boxIdx % 2;
-    const moveIdx = Math.floor(boxIdx / 2); // full-move index (independent of the color)
-    const row = moveIdx % rows;
-    const block = Math.floor(moveIdx / rows);
-    return { color, row, block };
-}
-export function boxPositions({ rows, columns, boxWidth }) {
+export const range = (n) => new Array(n).fill(0).map((_, i) => i);
+function pairsiwe(xs) {
+    const n = xs.length;
     const ps = [];
-    for (const c of blockCols(columns, boxWidth)) {
-        for (const i of range(0, rows)) {
-            const r = i / rows;
-            ps.push([c, r], [c + boxWidth, r]);
+    for (const i of range(n - 1))
+        ps.push([xs[i], xs[i + 1]]);
+    return ps;
+}
+export function boxPositions(model) {
+    const ps = [];
+    for (const [x1, x2] of pairsiwe(boxXs(model))) {
+        for (const i of range(model.rows)) {
+            const r = i / model.rows;
+            ps.push([x1, r], [x2, r]);
         }
     }
     return ps;
