@@ -1,6 +1,6 @@
 from typing_extensions import Sequence, Annotated
 from functools import cached_property
-from itertools import pairwise
+from haskellian import iter as I
 from pydantic import BaseModel
 import numpy as np
 
@@ -52,7 +52,7 @@ class Model(BaseModel):
     - Order: left to right, top to bottom within each block of 2 contiguous columns
     """
     ps = []
-    for x1, x2 in pairwise(self.box_xs):
+    for x1, x2 in I.batch(2, self.box_xs):
       for i in range(self.rows):
         r = i/self.rows
         ps.append((x1, r))
